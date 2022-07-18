@@ -1,5 +1,5 @@
 # microservices-prac
 
-#Jenkins CI
-#MongoDB
-#WebMVC, Spring Cloud, Kafka
+# Jenkins CI
+# MongoDB
+# WebMVC, Spring Cloud, Kafka
