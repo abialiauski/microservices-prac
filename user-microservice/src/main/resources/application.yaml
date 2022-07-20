@@ -11,8 +11,6 @@ spring:
       #password: ${MONGODB_ROOT_PASSWORD}
       #database: ${MONGODB_NAME}
       database: user-ms
-      #uri: mongodb://localhost/user-ms?authSource=admin
-      #authentication-database: admin
 
 logging:
   level:

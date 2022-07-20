@@ -5,8 +5,10 @@ services:
     ports:
       - "${USERMS_PORT}:${USERMS_PORT}"
     container_name: user-ms
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     #command:
-    #  - mongo --host mongodb --eval  "db.getSiblingDB('dashboard').createUser({user:'root_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
+    #  - mongodb --host mongodb --eval  "db.getSiblingDB('user-ms').createUser({user:'def_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
     env_file:
       - .env
     depends_on:
