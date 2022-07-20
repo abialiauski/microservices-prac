@@ -1,0 +1,3 @@
+rootProject.name = 'microservices-prac'
+
+include 'user-crud'
