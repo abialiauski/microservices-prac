@@ -31,6 +31,8 @@ public class UserController {
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Boolean singIn(UserAuthenticationDto userAuthenticationDto) {
+        User user = userService.findByUsernameAndPassword(userAuthenticationDto.getUsername(), userAuthenticationDto.getPassword());
+        log.info("Authenticated user : {}", user);
         return Boolean.TRUE;
     }
 
