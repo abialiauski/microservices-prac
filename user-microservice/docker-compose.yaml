@@ -8,7 +8,7 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     #command:
-    #  - mongodb --host mongodb --eval  "db.getSiblingDB('user-ms').createUser({user:'def_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
+    #  - mongodb --host mongodb --eval  "db.getSiblingDB('user-ms').createUser({user:'default_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
     env_file:
       - .env
     depends_on:
