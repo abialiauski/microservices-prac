@@ -1,4 +1,4 @@
-package org.micro.exception;
+package org.micro.user.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

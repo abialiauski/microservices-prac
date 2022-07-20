@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS user_account
+(
+    id       BIGSERIAL PRIMARY KEY,
+    username CHARACTER VARYING(64) UNIQUE NOT NULL
+);
