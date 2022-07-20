@@ -5,6 +5,8 @@ services:
     ports:
       - "${USERMS_PORT}:${USERMS_PORT}"
     container_name: user-ms
+    #command:
+    #  - mongo --host mongodb --eval  "db.getSiblingDB('dashboard').createUser({user:'root_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
     env_file:
       - .env
     depends_on:
