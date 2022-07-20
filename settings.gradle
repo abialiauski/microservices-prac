@@ -2,4 +2,4 @@ rootProject.name = 'microservices-prac'
 
 include 'user-crud'
 include 'license-service'
-
+include 'user-microservice'

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: USER_MICROSERVICE
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      username: myuser
+      #username: ${MONGODB_ROOT_USERNAME}
+      password: mypass
+      #password: ${MONGODB_ROOT_PASSWORD}
+      #database: ${MONGODB_NAME}
+      database: user-ms
+      #uri: mongodb://localhost/user-ms?authSource=admin
+      #authentication-database: admin
+
+logging:
+  level:
+    com:
+      solvd:
+        ikaravai: INFO
+    org:
+      springframework:
+        data: DEBUG
+server:
+  #port: ${USERMS_PORT}
+  port: 8090
