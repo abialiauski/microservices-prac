@@ -1,11 +1,18 @@
 version: '3'
 services:
+  config-service:
+    build: ../config-service/
+    ports:
+      - "8071:8071"
+    container_name: config-service
+    restart: unless-stopped
   user-ms:
     #image: docker.io/library/user-microservice:1.0
     build: .
     ports:
       - "${USERMS_PORT}:${USERMS_PORT}"
     container_name: user-ms
+    restart: unless-stopped
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     #command:
@@ -14,6 +21,7 @@ services:
       - .env
     depends_on:
       - mongodb
+      - config-service
     #networks:
     #  - user
   mongodb:
