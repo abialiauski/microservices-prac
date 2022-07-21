@@ -1,8 +1,8 @@
 spring:
   application:
-    name: USER_MICROSERVICE
-  data:
-    mongodb:
+    name: user-microservice
+  #data:
+    #mongodb:
       #host: localhost
       #port: 27017
       #username: myuser
@@ -11,9 +11,9 @@ spring:
       #password: ${MONGODB_ROOT_PASSWORD}
       #database: ${MONGODB_NAME}
       #database: user-ms
-      uri: mongodb://user:password@mongodb:27017/user-ms?authSource=admin
-      authentication-database: admin
-      auto-index-creation: true
+      #uri: mongodb://user:password@mongodb:27017/user-ms?authSource=admin
+      #authentication-database: admin
+      #auto-index-creation: true
 
 logging:
   level:

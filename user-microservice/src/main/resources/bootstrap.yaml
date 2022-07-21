@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: user-microservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://config-service:8071
+      fail-fast: true
+      retry:
+        max-attempts: 20
+
+logging:
+  level:
+    com:
+      solvd:
+        ikaravai: INFO
+    org:
+      springframework:
+        data: INFO
+server:
+  #port: ${USERMS_PORT}
+  port: 8090
+  #address: 0.0.0.0
