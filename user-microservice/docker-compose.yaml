@@ -1,7 +1,8 @@
 version: '3'
 services:
   user-ms:
-    image: docker.io/library/user-microservice:1.0
+    #image: docker.io/library/user-microservice:1.0
+    build: .
     ports:
       - "${USERMS_PORT}:${USERMS_PORT}"
     container_name: user-ms
@@ -13,8 +14,8 @@ services:
       - .env
     depends_on:
       - mongodb
-    networks:
-      - user
+    #networks:
+    #  - user
   mongodb:
     image: mongo
     restart: unless-stopped
@@ -24,8 +25,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-    networks:
-      - user
+    #networks:
+    #  - user
   mongo-express:
     image: mongo-express
     restart: unless-stopped
@@ -39,7 +40,7 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGODB_ROOT_PASSWORD}
       - ME_CONFIG_MONGODB_SERVER=mongodb
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-    networks:
-      - user
-networks:
-  user:
+    #networks:
+    #  - user
+#networks:
+#  user:

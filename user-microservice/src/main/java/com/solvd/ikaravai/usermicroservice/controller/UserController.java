@@ -28,7 +28,7 @@ public class UserController {
         return userService.save(userWithoutPassword, rawPassword);
     }
 
-    @PostMapping("/signin")
+    @GetMapping("/signin")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Boolean singIn(UserAuthenticationDto userAuthenticationDto) {
         User user = userService.findByUsernameAndPassword(userAuthenticationDto.getUsername(), userAuthenticationDto.getPassword());
