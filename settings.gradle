@@ -1,3 +1,5 @@
 rootProject.name = 'microservices-prac'
 
 include 'user-crud'
+include 'company'
+include 'moex-xml'
