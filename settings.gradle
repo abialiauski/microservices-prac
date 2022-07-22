@@ -1,9 +1,8 @@
 rootProject.name = 'microservices-prac'
 
 include 'user-crud'
-include 'company'
 include 'moex-xml'
 include 'license-service'
 include 'user-microservice'
 include 'post-vertx'
-
+include 'config-service'

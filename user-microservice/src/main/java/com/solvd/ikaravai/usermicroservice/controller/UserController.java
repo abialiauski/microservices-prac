@@ -2,6 +2,7 @@ package com.solvd.ikaravai.usermicroservice.controller;
 
 import com.solvd.ikaravai.usermicroservice.domain.User;
 import com.solvd.ikaravai.usermicroservice.dto.UserAuthenticationDto;
+import com.solvd.ikaravai.usermicroservice.dto.UserDto;
 import com.solvd.ikaravai.usermicroservice.dto.UserWithoutPasswordDto;
 import com.solvd.ikaravai.usermicroservice.repository.UserRepository;
 import com.solvd.ikaravai.usermicroservice.service.UserService;
@@ -27,9 +28,11 @@ public class UserController {
         return userService.save(userWithoutPassword, rawPassword);
     }
 
-    @PostMapping("/signin")
+    @GetMapping("/signin")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Boolean singIn(UserAuthenticationDto userAuthenticationDto) {
+        User user = userService.findByUsernameAndPassword(userAuthenticationDto.getUsername(), userAuthenticationDto.getPassword());
+        log.info("Authenticated user : {}", user);
         return Boolean.TRUE;
     }
 
@@ -37,5 +40,17 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    @PostMapping("/test/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User saveUser(@RequestBody UserDto userDto) {
+        return userRepository.save(
+                User.builder()
+                        .username(userDto.getUsername())
+                        .password(userDto.getPassword())
+                        .role("rest-user")
+                        .build()
+        );
     }
 }

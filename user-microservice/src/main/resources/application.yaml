@@ -22,7 +22,8 @@ logging:
         ikaravai: INFO
     org:
       springframework:
-        data: DEBUG
+        data: INFO
 server:
   #port: ${USERMS_PORT}
   port: 8090
+  #address: 0.0.0.0
