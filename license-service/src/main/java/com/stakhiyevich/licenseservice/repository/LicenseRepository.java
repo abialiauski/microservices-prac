@@ -1,6 +1,6 @@
-package com.stakhiyevich.microservicestudy.repository;
+package com.stakhiyevich.licenseservice.repository;
 
-import com.stakhiyevich.microservicestudy.model.License;
+import com.stakhiyevich.licenseservice.model.License;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
