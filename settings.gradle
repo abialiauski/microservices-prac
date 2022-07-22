@@ -5,3 +5,5 @@ include 'company'
 include 'moex-xml'
 include 'license-service'
 include 'user-microservice'
+include 'post-vertx'
+
