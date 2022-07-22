@@ -1,20 +1,3 @@
-spring:
-  application:
-    name: user-microservice
-  #data:
-    #mongodb:
-      #host: localhost
-      #port: 27017
-      #username: myuser
-      #username: ${MONGODB_ROOT_USERNAME}
-      #password: mypass
-      #password: ${MONGODB_ROOT_PASSWORD}
-      #database: ${MONGODB_NAME}
-      #database: user-ms
-      #uri: mongodb://user:password@mongodb:27017/user-ms?authSource=admin
-      #authentication-database: admin
-      #auto-index-creation: true
-
 logging:
   level:
     com:
@@ -24,6 +7,4 @@ logging:
       springframework:
         data: INFO
 server:
-  #port: ${USERMS_PORT}
   port: 8090
-  #address: 0.0.0.0

@@ -5,5 +5,5 @@ spring:
     active: dev
   cloud:
     config:
-      uri: http://localhost:8071
+      uri: http://config-service:8071
       fail-fast: true
