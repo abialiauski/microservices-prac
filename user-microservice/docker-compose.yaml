@@ -3,7 +3,7 @@ services:
   config-service:
     build: ../config-service/
     ports:
-      - "8071:8071"
+      - "${CONF_SERVICE_PORT}:${CONF_SERVICE_PORT}"
     container_name: config-service
     restart: unless-stopped
   user-ms:
@@ -50,5 +50,33 @@ services:
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
     #networks:
     #  - user
+  postgres:
+    image: postgres:14.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    container_name: postgres
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+#    networks:
+#      - user
+  user-crud:
+    #image: micro.org/library/user-crud:latest
+    build: ../user-crud/
+    restart: unless-stopped
+    container_name: user-crud
+    depends_on:
+      - postgres
+    ports:
+      - '${USER_CRUD_PORT}:${USER_CRUD_PORT}'
+#    networks:
+#      - user
+
+volumes:
+  postgres:
+    driver: local
 #networks:
 #  user:
