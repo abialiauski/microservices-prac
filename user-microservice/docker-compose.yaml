@@ -70,6 +70,7 @@ services:
     container_name: user-crud
     depends_on:
       - postgres
+      - config-service
     ports:
       - '${USER_CRUD_PORT}:${USER_CRUD_PORT}'
 #    networks:
