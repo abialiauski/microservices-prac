@@ -6,7 +6,7 @@
         <provider>org.hibernate.reactive.provider.ReactivePersistenceProvider</provider>
         <class>org.micro.post.model.Post</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/reactive-post"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://postgres/reactive-post"/>
             <property name="connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.connection.username" value="postgres"/>
