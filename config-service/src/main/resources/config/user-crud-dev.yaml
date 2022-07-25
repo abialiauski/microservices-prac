@@ -3,3 +3,8 @@ spring:
     url: r2dbc:postgresql://postgres:5432/user_db
     username: postgres
     password: postgres
+server:
+  port: 9000
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
