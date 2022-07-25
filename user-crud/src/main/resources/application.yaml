@@ -1,11 +1,11 @@
 server:
   port: 9000
 
-spring:
-  r2dbc:
-    url: r2dbc:postgresql://db:5432/user_db
-    username: postgres
-    password: postgres
+#spring:
+#  r2dbc:
+#    url: r2dbc:postgresql://postgres:5432/user_db
+#    username: postgres
+#    password: postgres
 
 logging:
   level:

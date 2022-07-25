@@ -9,7 +9,7 @@ services:
     restart: always
     ports:
       - "80:8080"
-      - "5000:5000"
+      - "5005:5005"
     volumes:
       - ${HOME}/jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

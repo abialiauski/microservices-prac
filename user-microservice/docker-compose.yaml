@@ -1,21 +1,79 @@
-version: '3'
+version: '3.8'
 services:
+  config-service:
+    build: ../config-service/
+    ports:
+      - "${CONF_SERVICE_PORT}:${CONF_SERVICE_PORT}"
+    container_name: config-service
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8071/user-crud/dev" ]
+      interval: 3s
+      timeout: 1s
+      retries: 5
+      start_period: 5s
+    env_file:
+      - .env
+    restart: unless-stopped
+  eureka-service:
+    build: ../eureka-service/
+    hostname: eureka-service
+    ports:
+      - "${EUREKA_SERVICE_PORT}:${EUREKA_SERVICE_PORT}"
+    container_name: eureka-service
+#    depends_on:
+#      - config-service
+    depends_on:
+      config-service:
+        condition: service_healthy
+    restart: unless-stopped
+  moex-service:
+    build: ../moex-xml/
+    ports:
+      - "${MOEX_SERVICE_PORT}:${MOEX_SERVICE_PORT}"
+    container_name: moex-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - config-service
+      - eureka-service
+  license-service:
+    build: ../license-service/
+    ports:
+      - "${LICENSE_SERVICE_PORT}:${LICENSE_SERVICE_PORT}"
+    container_name: license-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - config-service
+      - eureka-service
+  organization-service:
+    build: ../organization-service/
+    ports:
+      - "${ORG_SERVICE_PORT}:${ORG_SERVICE_PORT}"
+    container_name: organization-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - config-service
+      - eureka-service
   user-ms:
-    #image: docker.io/library/user-microservice:1.0
     build: .
     ports:
       - "${USERMS_PORT}:${USERMS_PORT}"
     container_name: user-ms
+    restart: unless-stopped
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    #command:
-    #  - mongodb --host mongodb --eval  "db.getSiblingDB('user-ms').createUser({user:'default_user', pwd:'password', roles:[{role:'readWrite',db:'user-ms'}]});"
     env_file:
       - .env
     depends_on:
       - mongodb
-    #networks:
-    #  - user
+      - config-service
   mongodb:
     image: mongo
     restart: unless-stopped
@@ -25,8 +83,6 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-    #networks:
-    #  - user
   mongo-express:
     image: mongo-express
     restart: unless-stopped
@@ -40,7 +96,27 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGODB_ROOT_PASSWORD}
       - ME_CONFIG_MONGODB_SERVER=mongodb
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-    #networks:
-    #  - user
-#networks:
-#  user:
+  postgres:
+    image: postgres:14.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    container_name: postgres
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  user-crud:
+    build: ../user-crud/
+    restart: unless-stopped
+    container_name: user-crud
+    depends_on:
+      - postgres
+      - config-service
+    ports:
+      - '${USER_CRUD_PORT}:${USER_CRUD_PORT}'
+
+volumes:
+  postgres:
+    driver: local

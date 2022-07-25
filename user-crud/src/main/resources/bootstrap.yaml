@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: user-crud
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://config-service:8071
+      fail-fast: true
+      retry:
+        max-attempts: 20
