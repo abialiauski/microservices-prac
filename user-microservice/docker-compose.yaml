@@ -20,8 +20,6 @@ services:
     ports:
       - "${EUREKA_SERVICE_PORT}:${EUREKA_SERVICE_PORT}"
     container_name: eureka-service
-#    depends_on:
-#      - config-service
     depends_on:
       config-service:
         condition: service_healthy
@@ -78,6 +76,8 @@ services:
     image: mongo
     restart: unless-stopped
     container_name: mongodb
+    volumes:
+      - mongo:/data/db
     ports:
       - "${MONGODB_PORT}:${MONGODB_PORT}"
     environment:
@@ -119,4 +119,6 @@ services:
 
 volumes:
   postgres:
+    driver: local
+  mongo:
     driver: local

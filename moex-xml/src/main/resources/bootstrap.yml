@@ -1,6 +1,6 @@
 spring:
   application:
-    name: moexxml
+    name: moex-xml
   profiles:
     active: dev
   cloud:
