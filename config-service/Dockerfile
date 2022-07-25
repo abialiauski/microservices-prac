@@ -1,5 +1,7 @@
 FROM openjdk:17-alpine
 
+RUN apk --no-cache add curl
+
 ENV TZ=Europe/Minsk
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

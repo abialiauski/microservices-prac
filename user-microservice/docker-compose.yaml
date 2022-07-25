@@ -5,6 +5,12 @@ services:
     ports:
       - "${CONF_SERVICE_PORT}:${CONF_SERVICE_PORT}"
     container_name: config-service
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8071/user-crud/dev" ]
+      interval: 3s
+      timeout: 1s
+      retries: 5
+      start_period: 5s
     env_file:
       - .env
     restart: unless-stopped
@@ -14,8 +20,11 @@ services:
     ports:
       - "${EUREKA_SERVICE_PORT}:${EUREKA_SERVICE_PORT}"
     container_name: eureka-service
+#    depends_on:
+#      - config-service
     depends_on:
-      - config-service
+      config-service:
+        condition: service_healthy
     restart: unless-stopped
   moex-service:
     build: ../moex-xml/
