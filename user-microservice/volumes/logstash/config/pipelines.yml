@@ -1,0 +1,2 @@
+- pipeline.id: mongodata-pipeline
+  path.config: "/usr/share/logstash/pipeline/mongodata.conf"

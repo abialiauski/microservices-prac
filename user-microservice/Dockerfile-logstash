@@ -1,0 +1,14 @@
+FROM docker.elastic.co/logstash/logstash:8.3.2
+
+USER root
+
+ENV TZ=Europe/Minsk
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN mkdir -p /opt/logstash-mongodb
+
+RUN chown logstash /opt/logstash-mongodb
+
+USER logstash
+
+RUN logstash-plugin install logstash-input-mongodb
