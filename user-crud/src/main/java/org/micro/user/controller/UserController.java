@@ -2,16 +2,16 @@ package org.micro.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.micro.user.model.User;
+import org.micro.user.model.UserElastic;
+import org.micro.user.repository.UserElasticRepository;
 import org.micro.user.repository.UserRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserElasticRepository userElasticRepository;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
@@ -36,5 +37,23 @@ public class UserController {
     @GetMapping("/name")
     public Mono<User> getByName(@RequestParam String name) {
         return userRepository.findByName(name);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/elastic/{name}")
+    public UserElastic createUserElastic(@PathVariable String name) {
+        return userElasticRepository.save(
+                UserElastic
+                        .builder()
+                        .name(name)
+                        .id(UUID.randomUUID().toString())
+                        .build()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/elastic")
+    public Iterable<UserElastic> getAllUserElastic() {
+        return userElasticRepository.findAll();
     }
 }
