@@ -8,3 +8,9 @@ logging:
         data: INFO
 server:
   port: 8090
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${USER_NAME}:${USER_PASSWORD}@${DB_URL}:27017/user-ms?authSource=admin
+      authentication-database: admin
+      auto-index-creation: true
